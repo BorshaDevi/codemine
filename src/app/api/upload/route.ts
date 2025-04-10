@@ -3,14 +3,13 @@ import { v2 as cloudinary } from 'cloudinary';
 import { Readable } from "stream";
 
 
-
 cloudinary.config ({
     cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
     api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
     api_secret: process.env.API_SECRET,
 
 })
-export async function  POST (req:NextRequest){
+export async function  POST (req:NextRequest) {
           const formData=await req.formData() as FormData;
           const file=formData.get('file') as File;
           if(!file){
@@ -20,19 +19,23 @@ export async function  POST (req:NextRequest){
          const buffer=Buffer.from(bufferArray);
          const stream= Readable.from(buffer) ;
           try{
-            const upload= await new Promise((resolve, reject)=>{
+            const upload=await new Promise((resolve , reject)=>{
               const uploadFile=cloudinary.uploader.upload_stream({folder:'gallery'} ,(error , result )=>{
                 if(error || !result){
-                  return reject(error , 'Error uploading file ');
+                  return reject ('Error uploading file ')
                 }else{
-                  console.log(result);
-                  resolve({url:result.secure_url});
+                  console.log(result , 'uploaded image url'); 
+                   resolve (result);
                 }
           })
-          stream.pipe(uploadFile)
+          stream.pipe(uploadFile);
+            })
+              
+          
+          const {secure_url , public_id , asset_id}=upload
+            return NextResponse.json({
+              secure_url , public_id , asset_id
             });
-            const { secure_url}=upload as {secure_url:string};
-            return NextResponse.json({url : secure_url},{status:200});
 
           }
           catch (error){

@@ -8,7 +8,17 @@ const UploadImage=()=>{
                     }
                  formData.append('file',file);
                  const response=await axios.post('/api/upload',formData)
-                    console.log(response.data);
+                 .then(res =>{
+                    if(res.status===200){
+                        const imageData=JSON.parse(localStorage.getItem('image') || '{}');
+                        imageData.push(res.data);
+                        localStorage.setItem('image',JSON.stringify(imageData));
+                        console.log(imageData,'image uploaded successfully');
+                    }
+                 }).catch(err=>{
+                    console.log(err);
+                 })
+                    
     }
     return(
         <>
