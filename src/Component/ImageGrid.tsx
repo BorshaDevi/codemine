@@ -1,9 +1,16 @@
 import { useEffect, useState } from "react";
 import { CldImage } from 'next-cloudinary';
 import Swal from "sweetalert2";
+import ModalImage from "./ModalImage";
+
+
 const ImageGrid= () => {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [modalImage, setModalImage] = useState(null);
+    const[open, setOpen]=useState(false);
+    const[close, setClose]=useState(false);
+
     useEffect(()=>{
         const images=JSON.parse(localStorage.getItem('image') || '[]');
         if(images){
@@ -12,6 +19,23 @@ const ImageGrid= () => {
         }
         console.log(images,'images')
     },[])
+
+
+    //handle modal
+    const handleModal=(url)=>{
+        console.log(url,'url')
+             setModalImage(url)
+                setOpen(true);
+    }
+
+    //handle close modal
+    const handleClose=()=>{
+        setOpen(false);
+        setClose(true);
+        
+    }
+
+    //delete image
     const handleDelete=async(id)=>{
         Swal.fire({
             title: "Are you sure?",
@@ -52,12 +76,13 @@ const ImageGrid= () => {
             height="300"
             sizes="100vw"
             alt={image.public_id}
-            className="object-contain aspect-[4/3] "
-             ></CldImage>
+            className="object-contain aspect-[4/3] hover:cursor-pointer"
+            onClick={()=>handleModal(image.secure_url)}
+            ></CldImage>
              <button onClick={()=>handleDelete(image.asset_id)} className="mt-5 bg-red-700 p-2 font-extrabold rounded-md">Delete</button>
             </div>)}
             </>}
-
+            {open&&<ModalImage url={modalImage} open={open} close={handleClose}></ModalImage>}
         </div>
         </>
     )
