@@ -67,6 +67,7 @@ const ImageGrid= () => {
 
     return(
         <>
+        <h1 className='text-center font-semibold mt-10 text-3xl text-green-300'>Image Gallery</h1>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1  gap-4 mt-4">
             {loading ? <p className="text-xl text-green-700 flex justify-center items-center">Loading...</p> : <>
             {images.map(image => <div key={image.public_id} className="flex justify-center items-center flex-col border-2 border-gray-300 rounded-lg p-4 bg-white">
