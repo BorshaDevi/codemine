@@ -4,7 +4,11 @@ import Swal from "sweetalert2";
 import ModalImage from "./ModalImage";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-
+type ImageType = {
+    public_id: string;
+    secure_url: string;
+    asset_id: string;
+}
 const ImageGrid= () => {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -49,7 +53,7 @@ const ImageGrid= () => {
           }).then((result) => {
             if (result.isConfirmed) {
                 const image=JSON.parse(localStorage.getItem('image') || '[]');
-                const deleteImage=image.filter(img => img.asset_id !== id);
+                const deleteImage=image.filter((img: ImageType) => img.asset_id !== id);
                 localStorage.setItem('image',JSON.stringify(deleteImage));
                 if(deleteImage){
                     setImages(deleteImage);
