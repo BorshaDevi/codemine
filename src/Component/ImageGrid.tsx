@@ -10,7 +10,7 @@ type ImageType = {
     asset_id: string;
 }
 const ImageGrid= () => {
-    const [images, setImages] = useState([]);
+    const [images, setImages] = useState<ImageType[]>([]);
     const [loading, setLoading] = useState(true);
     const [modalImage, setModalImage] = useState<string | null>(null);
     const[open, setOpen]=useState(false);
