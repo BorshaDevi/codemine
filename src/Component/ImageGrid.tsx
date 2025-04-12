@@ -10,7 +10,7 @@ const ImageGrid= () => {
     const [loading, setLoading] = useState(true);
     const [modalImage, setModalImage] = useState(null);
     const[open, setOpen]=useState(false);
-    const[ setClose]=useState(false);
+   
 
     useEffect(()=>{
         const images=JSON.parse(localStorage.getItem('image') || '[]');
@@ -23,7 +23,7 @@ const ImageGrid= () => {
 
 
     //handle modal
-    const handleModal=(url)=>{
+    const handleModal=(url:string)=>{
         console.log(url,'url')
              setModalImage(url)
                 setOpen(true);
@@ -32,12 +32,12 @@ const ImageGrid= () => {
     //handle close modal
     const handleClose=()=>{
         setOpen(false);
-        setClose(true);
+      
         
     }
 
     //delete image
-    const handleDelete=async(id)=>{
+    const handleDelete=async(id:string)=>{
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be delete Image!",
@@ -89,7 +89,7 @@ className="h-[400px] overflow-auto flex flex-col-reverse"
             sizes="100vw"
             loading="lazy"
             quality="auto"
-            alt={image.public_id}
+            alt={image.public_id }
             className="object-contain aspect-[4/3] hover:cursor-pointer"
             onClick={()=>handleModal(image.secure_url)}
             ></CldImage>
