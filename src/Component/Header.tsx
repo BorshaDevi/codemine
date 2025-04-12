@@ -15,7 +15,7 @@ const  Header=()=>{
 
   
 
-  const handleMenu = (event) => {
+  const handleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
