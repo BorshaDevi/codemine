@@ -7,7 +7,7 @@ const UploadImage=()=>{
                         return console.log('Please select a file');
                     }
                  formData.append('file',file);
-                 const response=await axios.post('/api/upload',formData)
+                 await axios.post('/api/upload',formData)
                  .then(res =>{
                     if(res.status===200){
                         const imageData=JSON.parse(localStorage.getItem('image') || '[]');

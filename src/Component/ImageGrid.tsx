@@ -10,7 +10,7 @@ const ImageGrid= () => {
     const [loading, setLoading] = useState(true);
     const [modalImage, setModalImage] = useState(null);
     const[open, setOpen]=useState(false);
-    const[close, setClose]=useState(false);
+    const[ setClose]=useState(false);
 
     useEffect(()=>{
         const images=JSON.parse(localStorage.getItem('image') || '[]');
