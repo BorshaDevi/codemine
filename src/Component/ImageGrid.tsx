@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { CldImage } from 'next-cloudinary';
 import Swal from "sweetalert2";
 import ModalImage from "./ModalImage";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 
 const ImageGrid= () => {
@@ -68,7 +69,17 @@ const ImageGrid= () => {
     return(
         <>
         <h1 className='text-center font-semibold mt-10 text-3xl text-green-300'>Image Gallery</h1>
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1  gap-4 mt-4">
+        <div
+className="h-[400px] overflow-auto flex flex-col-reverse"
+>
+        <InfiniteScroll
+         dataLength={images.length}
+         loader={<h4 className="text-green-600 text-2xl font-semibold">Loading...</h4>}
+         endMessage={<p className="text-xl">No more Images</p>}
+         hasMore={true}
+         next={()=>{}}
+        >
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1  gap-4 mt-4 p-4">
             {loading ? <p className="text-xl text-green-700 flex justify-center items-center">Loading...</p> : <>
             {images.map(image => <div key={image.public_id} className="flex justify-center items-center flex-col border-2 border-gray-300 rounded-lg p-4 bg-white">
                 <CldImage
@@ -85,6 +96,8 @@ const ImageGrid= () => {
              <button onClick={()=>handleDelete(image.asset_id)} className="mt-5 bg-red-700 p-2 font-extrabold rounded-md">Delete</button>
             </div>)}
             </>}
+        </div>
+        </InfiniteScroll>
         </div>
             {<ModalImage url={modalImage} open={open} close={handleClose}></ModalImage>}
         </>
