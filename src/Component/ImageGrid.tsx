@@ -75,6 +75,8 @@ const ImageGrid= () => {
             width="400"
             height="300"
             sizes="100vw"
+            loading="lazy"
+            quality="auto"
             alt={image.public_id}
             className="object-contain aspect-[4/3] hover:cursor-pointer"
             onClick={()=>handleModal(image.secure_url)}
@@ -82,8 +84,8 @@ const ImageGrid= () => {
              <button onClick={()=>handleDelete(image.asset_id)} className="mt-5 bg-red-700 p-2 font-extrabold rounded-md">Delete</button>
             </div>)}
             </>}
-            {open&&<ModalImage url={modalImage} open={open} close={handleClose}></ModalImage>}
         </div>
+            {<ModalImage url={modalImage} open={open} close={handleClose}></ModalImage>}
         </>
     )
 }
