@@ -8,7 +8,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 const ImageGrid= () => {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [modalImage, setModalImage] = useState(null);
+    const [modalImage, setModalImage] = useState<string | null>(null);
     const[open, setOpen]=useState(false);
    
 
